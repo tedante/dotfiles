@@ -1,7 +1,7 @@
 ## Setting Terminal
 1. Install [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 2. Instal [oh-my-zsh](https://ohmyz.sh/#install)
-3. Install [meslo nerd font](https://github.com/romkatv/powerlevel10ki)
+3. Install [meslo nerd font](https://github.com/romkatv/powerlevel10k)
 4. Instal [powerline110k](https://github.com/romkatv/powerlevel10k)
 5. Install [tmux](https://github.com/tmux/tmux/wiki/Installing)
 6. Install [tmux-plugin](https://github.com/tmux-plugins/tpm)
