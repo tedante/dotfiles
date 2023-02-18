@@ -10,7 +10,7 @@ mkdir ~/.config/nvim
 touch ~/.config/nvim/init.vim
 ```
 - Install [vim-plug](https://github.com/junegunn/vim-plug)
-- Copy config .vimsrc from [ajatdarojat45](https://github.com/ajatdarojat45/dotfiles)
+- Copy config to `~/.config`
 - on nvim run `:PlugInstall` and restart nvim 
 - on nvim run `:CocInstall coc-tsserver` and restart nvim 
 
