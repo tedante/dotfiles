@@ -137,8 +137,7 @@ alias hg="history | grep " # +command
 alias ag="alias | grep " # +command
 alias nd="npx nodemon "
 alias nrd="npm run dev"
-
-
+alias cdcode="cd ~/code/"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

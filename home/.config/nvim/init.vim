@@ -25,6 +25,11 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'connorholyday/vim-snazzy'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
+Plug 'ryanoasis/vim-devicons'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'jiangmiao/auto-pairs'
+"Plug 'ludovicchabant/vim-gutentags'
+"Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
 call plug#end()
 
 
@@ -53,6 +58,9 @@ set expandtab
 "set foldmethod=manual
 set clipboard=unnamed
 colorscheme snazzy
+set wildmode=longest,list,full
+set wildmenu
+set mouse=a
 
 " nerdtree
 nnoremap <leader>n :NERDTreeFocus<CR>
@@ -68,3 +76,58 @@ nnoremap ss :Prettier<CR> \| :w<CR>
 " Type jj to exit insert mode quickly.
 inoremap jj <Esc>
 
+" fzf
+" " Ctrl+P: cari file di direktori
+silent! nmap <C-P> :Files<CR>
+
+" Ctrl+G: cari file di repository
+silent! namp <C-G> :GFiles<CR>
+
+" Ctrl+F: cari file berdasarkan string/regex
+silent! nmap <C-f> :Rg!
+
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
+nnoremap <C-h> :bprevious<CR>
+nnoremap <C-l> :bnext<CR>
+nnoremap <C-k> :bfirst<CR>
+nnoremap <C-j> :blast<CR>
+nnoremap <C-d> :bdelete<CR>
+
+" minimap
+let g:minimap_width = 10
+let g:minimap_auto_start = 0
+let g:minimap_auto_start_win_enter = 1
+
+set nobackup
+set nowritebackup
+
+" Start NERDTree and leave the cursor in it.
+" autocmd VimEnter * NERDTree
+
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#pum#next(1):
+  \ CheckBackspace() ? "\<Tab>" :
+  \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+    noremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" " Use `:CocDiagnostics` to get all diagnostics of current buffer in location
+" list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
