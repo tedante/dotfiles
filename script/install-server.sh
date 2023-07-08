@@ -13,6 +13,16 @@ else
 fi
 
 # ======================== 
+# Install vim
+# ======================== 
+sudo apt -y install vim
+if type -p vim > /dev/null; then
+    echo "vim Installed" >> $log_file
+else
+    echo "vim FAILED TO INSTALL!!!" >> $log_file
+fi
+
+# ======================== 
 # Install docker
 # ======================== 
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
