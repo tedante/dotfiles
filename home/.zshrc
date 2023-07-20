@@ -120,6 +120,32 @@ function acp() {
 	git push
 }
 
+function cjsBeInstall() {
+	if [[ ! -d ".git" ]]; then
+		git init
+	fi
+	
+	if [[ ! -f ".gitignore" ]]; then
+		cp ~/code/dotfiles/templates/node-gitignore ./.gitignore
+	fi
+
+	if [[ ! -f "./package.json" ]]; then
+		npm init -y
+		npm i express jsonwebtoken bcryptjs pg sequelize
+		npm i -D sequelize-cli nodemon
+	fi
+
+	if [[ ! -d "models" ]]; then
+		s init
+	fi
+
+	if [[ ! -f "app.js" ]]; then
+		cp ~/code/dotfiles/templates/cjs-app.js ./app.js
+		mkdir ./routes ./controllers ./views
+		cp ~/code/dotfiles/templates/cjs-router.js ./routes/index.js
+	fi	
+}
+
 # =====================================
 # Alias
 # =====================================
@@ -139,6 +165,7 @@ alias nd="npx nodemon "
 alias nrd="npm run dev"
 alias cdcode="cd ~/code/"
 alias s="npx sequelize-cli "
+alias cjsbe="cjsBeInstall"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
