@@ -136,7 +136,7 @@ function cjsBeInstall() {
 	fi
 
 	if [[ ! -d "models" ]]; then
-		s init
+		npx sequelize-cli init
 	fi
 
 	if [[ ! -f "app.js" ]]; then
