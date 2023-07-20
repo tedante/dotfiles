@@ -57,7 +57,7 @@ Example [here](./templates/sub.domain.com.bak)
 
 This config placed on the server at `/etc/nginx/sites-available/`
 
-## Server
+## Server (Linux)
 Script for install nginx and docker
 
 ### Prerequisite
