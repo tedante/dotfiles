@@ -27,7 +27,7 @@ ln -s ~/code/dotfiles/home/.zshrc ~/
 
 ## Snippets
 ### Nginx config
-Example [here](./snippets/sub.domain.com.bak)
+Example [here](./templates/sub.domain.com.bak)
 
 This config placed on the server at `/etc/nginx/sites-available/`
 
