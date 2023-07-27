@@ -146,6 +146,15 @@ function cjsBeInstall() {
 	fi	
 }
 
+function jsonServer() {
+	if [ ! -z "$1" ] 
+	then
+		json-server --watch $1
+	else
+		json-server --watch db.json
+	fi
+}
+
 # =====================================
 # Alias
 # =====================================
@@ -166,9 +175,18 @@ alias nrd="npm run dev"
 alias cdcode="cd ~/code/"
 alias s="npx sequelize-cli "
 alias cjsbe="cjsBeInstall"
+alias js="jsonServer"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source /home/tedante/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/code/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# pnpm
+export PNPM_HOME="/Users/tedante/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
