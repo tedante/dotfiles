@@ -155,6 +155,13 @@ function jsonServer() {
 	fi
 }
 
+function sequelizeReset() {
+	s db:drop
+	s db:create
+	s db:migrate
+	s db:seed:all
+}
+
 # =====================================
 # Alias
 # =====================================
@@ -176,6 +183,8 @@ alias cdcode="cd ~/code/"
 alias s="npx sequelize-cli "
 alias cjsbe="cjsBeInstall"
 alias js="jsonServer"
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+alias sreset="sequelizeReset"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
