@@ -114,10 +114,9 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-function acp() {
+function gc() {
 	git add .
 	git commit -m "$1"
-	git push
 }
 
 function cjsBeInstall() {
@@ -162,6 +161,10 @@ function sequelizeReset() {
 	s db:seed:all
 }
 
+function gitLog() {
+	git log --pretty=format:"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr)%Creset %C(blue)[%an]" --abbrev-commit -30
+}
+
 # =====================================
 # Alias
 # =====================================
@@ -169,7 +172,7 @@ alias c="clear"
 alias x="exit"
 alias zc="nvim ~/.zshrc"
 alias r="source ~/.zshrc"
-alias gc="acp"
+alias gc="gc"
 alias nv="nvim "
 alias ls="ls -a --color=tty -l -h"
 alias nvc="nv /home/tedante/.config/nvim/init.vim"
@@ -185,6 +188,7 @@ alias cjsbe="cjsBeInstall"
 alias js="jsonServer"
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 alias sreset="sequelizeReset"
+alias gl="gitLog"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
