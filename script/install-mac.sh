@@ -18,6 +18,7 @@ brew update
 # ===========
 header_echo "Installing git with Homebrew ..."
 brew install git
+brew install gnupg
 brew tap caskroom/cask
 brew cask install github-desktop
 
