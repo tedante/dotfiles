@@ -160,6 +160,15 @@ function gitLog() {
 	git log --pretty=format:"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr)%Creset %C(blue)[%an]" --abbrev-commit -30
 }
 
+function gc() {
+	git add .
+	git commit -m "$1"
+}
+
+function gp() {
+	git push
+}
+
 # =====================================
 # Alias
 # =====================================
@@ -183,6 +192,8 @@ alias js="jsonServer"
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 alias sreset="sequelizeReset"
 alias gl="gitLog"
+alias gc="gc"
+alias gp="gp"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -197,3 +208,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+fi
