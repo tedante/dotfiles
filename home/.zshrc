@@ -169,6 +169,22 @@ function gp() {
 	git push
 }
 
+function runNodemon() {
+	if [ `npm list | grep -c nodemon` -eq 0 ]; then
+		echo "==================="
+		echo "Nodemon is not installed on your machine"
+		echo "Installing nodemon"
+
+		npm install -D nodemon
+
+		echo "Nodemon installed"
+		echo "==================="
+  fi
+
+	echo "Running 'npx nodemon $1'"
+	npx nodemon "$1"
+}
+
 # =====================================
 # Alias
 # =====================================
@@ -183,7 +199,7 @@ alias h="history -10" # last 10 history commands
 alias hc="history -c" # clear history
 alias hg="history | grep " # +command
 alias ag="alias | grep " # +command
-alias nd="npx nodemon "
+alias nd="runNodemon"
 alias nrd="npm run dev"
 alias cdcode="cd ~/code/"
 alias s="npx sequelize-cli "
@@ -194,6 +210,8 @@ alias sreset="sequelizeReset"
 alias gl="gitLog"
 alias gc="gc"
 alias gp="gp"
+alias nrb="npm run build"
+alias nrt="npm run test"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -215,3 +233,5 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
 fi
+
+export PATH=/Users/tedante/bin:$PATH
