@@ -212,6 +212,7 @@ alias gc="gc"
 alias gp="gp"
 alias nrb="npm run build"
 alias nrt="npm run test"
+alias gcl="git clone "
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
