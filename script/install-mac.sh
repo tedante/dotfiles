@@ -3,9 +3,9 @@
 log_file=~/install_progress_log.txt
 
 header_echo() {
-    printf "\n============================\n"
-    printf "\n$1\n" "$@"
-    printf "\n============================\n"
+  printf "\n============================\n"
+  printf "\n$1\n" "$@"
+  printf "\n============================\n"
 }
 
 # Brew
