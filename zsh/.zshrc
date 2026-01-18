@@ -96,6 +96,55 @@ function gl() {
     git log --pretty=format:"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr)%Creset %C(blue)[%an]" --abbrev-commit -30
 }
 
+function setup_nginx_proxy() {
+    local DOMAIN=$1
+    local PORT=$2
+    
+    if [[ -z "$DOMAIN" || -z "$PORT" ]]; then
+        echo "Usage: setup_nginx_proxy <domain> <port>"
+        return 1
+    fi
+
+    local CONF_PATH="/etc/nginx/sites-available/$DOMAIN"
+    local ZONE_NAME="limit_$(echo $DOMAIN | tr '.' '_')"
+
+    echo "🚀 Creating optimized Nginx config for $DOMAIN on port $PORT..."
+
+    sudo tee $CONF_PATH > /dev/null <<EOF
+# Rate Limiting Zone
+limit_req_zone \$binary_remote_addr zone=$ZONE_NAME:10m rate=5r/s;
+
+server {
+    listen 80;
+    server_name $DOMAIN;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript;
+
+    location / {
+        limit_req zone=$ZONE_NAME burst=10 nodelay;
+        proxy_pass http://localhost:$PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+}
+EOF
+
+    sudo ln -sf $CONF_PATH /etc/nginx/sites-enabled/
+    
+    if sudo nginx -t; then
+        sudo systemctl restart nginx
+        echo "✅ Domain $DOMAIN is now linked to port $PORT!"
+    else
+        echo "❌ Nginx config error. Please check the logs."
+    fi
+}
+
 # ==============================================================================
 # 5. ALIASES (Organized)
 # ==============================================================================
@@ -117,6 +166,7 @@ alias docker="podman"
 alias s="npx sequelize-cli"
 alias sreset="sreset"
 alias nd="nd "
+alias setupNginx=setup_nginx_proxy
 
 # Git Aliases
 alias gc='git add . && git commit -m'
