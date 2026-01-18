@@ -6,16 +6,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,11 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-	git
-	zsh-autosuggestions
-	z
-)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,23 +92,66 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Add in Powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# Add in zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+# Add in snippets
+zinit snippet OMZL::git.zsh
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::aws
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::command-not-found
+
+eval "$(zoxide init zsh)"
 
 function cjsBeInstall() {
 	if [[ ! -d ".git" ]]; then
@@ -120,7 +159,7 @@ function cjsBeInstall() {
 	fi
 	
 	if [[ ! -f ".gitignore" ]]; then
-		cp ~/code/dotfiles/templates/node-gitignore ./.gitignore
+		cp ~/development/dotfiles/templates/node-gitignore ./.gitignore
 	fi
 
 	if [[ ! -f "./package.json" ]]; then
@@ -134,9 +173,9 @@ function cjsBeInstall() {
 	fi
 
 	if [[ ! -f "app.js" ]]; then
-		cp ~/code/dotfiles/templates/cjs-app.js ./app.js
+		cp ~/development/dotfiles/templates/cjs-app.js ./app.js
 		mkdir ./routes ./controllers ./views
-		cp ~/code/dotfiles/templates/cjs-router.js ./routes/index.js
+		cp ~/development/dotfiles/templates/cjs-router.js ./routes/index.js
 	fi	
 }
 
@@ -188,51 +227,44 @@ function runNodemon() {
 # =====================================
 # Alias
 # =====================================
+alias ls='eza -a -l -h --icons'
+alias bat='batcat'
+alias cat='bat --paging=never'
+alias grep='rg'
 alias c="clear"
 alias x="exit"
-alias zc="nvim ~/.zshrc"
+alias nvzsh="nvim ~/.zshrc"
 alias r="source ~/.zshrc"
 alias nv="nvim "
-alias ls="ls -a --color=tty -l -h"
-alias nvc="nv /home/tedante/.config/nvim/init.vim"
+alias v="nvim "
 alias h="history -10" # last 10 history commands
 alias hc="history -c" # clear history
 alias hg="history | grep " # +command
 alias ag="alias | grep " # +command
 alias nd="runNodemon"
 alias nrd="npm run dev"
-alias cdcode="cd ~/code/"
+alias cdcode="cd ~/development/"
 alias s="npx sequelize-cli "
 alias cjsbe="cjsBeInstall"
 alias js="jsonServer"
-alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 alias sreset="sequelizeReset"
 alias gl="gitLog"
 alias gc="gc"
 alias gp="gp"
 alias nrb="npm run build"
 alias nrt="npm run test"
+alias nrl="npm run lint"
 alias gcl="git clone "
+alias docker="podman"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source ~/code/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. "$HOME/.local/bin/env"
 
-# pnpm
-export PNPM_HOME="/Users/tedante/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
-
-export PATH=/Users/tedante/bin:$PATH
+[[ -s "/home/tedante/.gvm/scripts/gvm" ]] && source "/home/tedante/.gvm/scripts/gvm"
+eval "$(vfox activate zsh)"
