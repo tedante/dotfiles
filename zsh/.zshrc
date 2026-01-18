@@ -32,6 +32,9 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+autoload -Uz compinit && compinit
+zinit cdreplay -q
+
 # Load Theme & Essential Plugins
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-syntax-highlighting
@@ -107,11 +110,13 @@ alias x="exit"
 # Dev Shortcuts
 alias nv="nvim"
 alias v="nvim"
-alias nvz="nvim ~/.zshrc"
+alias vzsh='nvim $DOTFILES/zsh/.zshrc'
 alias r="source ~/.zshrc"
 alias cdcode="cd ~/development"
 alias docker="podman"
 alias s="npx sequelize-cli"
+alias sreset="sreset"
+alias nd="nd "
 
 # Git Aliases
 alias gc='git add . && git commit -m'
