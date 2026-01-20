@@ -1,76 +1,93 @@
-# Dotfiles
+# Teddy's Dotfiles & Workspace Setup
 
-## Basic Usage
-### 1. Create directory code
+This repository contains my personal configuration files and automation scripts to bootstrap a Node.js development and DevOps environment on **Linux Mint (Cinnamon)**.
 
-```bash
-mkdir ~/code
-cd ~/code
-```
+## Quick One-Line Installation
 
-### 2. Clone this repository
+For a fresh Linux Mint installation, you can set up everything with a single command. This will clone the repository, install all dependencies, and configure your system:
+
+### Using Curl
 
 ```bash
-git clone git@github.com:tedante/dotfiles.git
-git clone git@github.com:zsh-users/zsh-syntax-highlighting.git
+curl -sSL https://raw.githubusercontent.com/tedante/dotfiles/main/install.sh | bash
+
 ```
 
-### 3. Install some terminal tools
-
-- Install [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
-- Instal [oh-my-zsh](https://ohmyz.sh/#install)
-- Install [zsh-autosuggestion](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-- Install [meslo nerd font](https://github.com/romkatv/powerlevel10k)
-- Instal [powerline110k](https://github.com/romkatv/powerlevel10k)
-
-### 4. create symbolic links
+### Using Wget
 
 ```bash
-ln -s ~/code/dotfiles/home/.zshrc ~/
+wget -qO- https://raw.githubusercontent.com/tedante/dotfiles/main/install.sh | bash
+
 ```
 
-## [Nvim Config](https://www.sitepoint.com/zsh-tips-tricks/)
-### 1. Install [nvim](https://github.com/neovim/neovim)
+---
 
-### 2. Create file init.vim
+## Overview
 
-```bash
-mkdir ~/.config/nvim
-touch ~/.config/nvim/init.vim
+The setup follows a "Modern Unix" philosophy, replacing standard tools with faster, more efficient alternatives.
+
+### Key Components:
+
+- **Shell:** Zsh managed by `Zinit` with the `Powerlevel10k` theme.
+- **Terminal:** Alacritty (System-wide default).
+- **Editor:** Neovim (LazyVim distribution) & VS Code.
+- **Containers:** Podman (aliased to Docker), Lazydocker.
+- **Keymap:** Hybrid Omarchy-style keybindings for Cinnamon.
+- **Package Management:** GNU Stow for symlinking configurations.
+
+---
+
+## Repository Structure
+
+```text
+~/dotfiles/
+├── alacritty/      # Alacritty terminal configuration (.toml)
+├── nvim/           # LazyVim configuration and plugins
+├── tmux/           # Tmux terminal multiplexer config
+├── zsh/            # .zshrc, .p10k.zsh, and custom functions
+├── setup-mint.sh   # Master installation & automation script
+├── setup-keymap.sh # Cinnamon desktop keybinding automation
+└── install.sh      # Remote bootstrap script for curl/wget
+
 ```
 
-### 3. Install [vim-plug](https://github.com/junegunn/vim-plug)
+---
 
-### 4. Copy folder nvim config to `~/`
-```bash
-ln -s ~/code/dotfiles/home/.config ~/
-```
+## Installation Details
 
-### 5. Install nvim plugin
-- on nvim run `:PlugInstall` and restart nvim 
-- on nvim run `:CocInstall coc-tsserver` and restart nvim 
+The `setup-mint.sh` script is idempotent and handles:
 
+1. **PPA Registration:** Neovim, Ulauncher, Alacritty, and Lazygit.
+2. **Core Tools:** Podman, Steam, VS Code, eza, bat, and more.
+3. **Fonts:** JetBrainsMono Nerd Font.
+4. **Language Managers:** NVM for Node.js.
+5. **Linking:** Automatic symlinking of configs via GNU Stow.
 
-## Snippets
-### Nginx config
-Example [here](./templates/sub.domain.com.bak)
+### Manual Steps (Required)
 
-This config placed on the server at `/etc/nginx/sites-available/`
+Due to desktop environment limitations, these must be set manually in **System Settings -> Keyboard -> Shortcuts -> Custom Shortcuts**:
 
-## Server (Linux)
-Script for install nginx and docker
+| Name                | Command                                             | Shortcut            |
+| ------------------- | --------------------------------------------------- | ------------------- |
+| **Universal Copy**  | `sh -c 'xdotool key --clearmodifiers ctrl+c'`       | `Super + C`         |
+| **Universal Paste** | `sh -c 'xdotool key --clearmodifiers shift+insert'` | `Super + V`         |
+| **Lazydocker**      | `alacritty -e lazydocker`                           | `Super + Shift + D` |
 
-### Prerequisite
-Install git in your machine
+---
 
-1. Clone this repository
-2. change folder to `dotfiles`
-```bash
-cd dotfiles
-```
-3. run the script 
-```bash
-bash ./script/install-server.sh
-```
-4. waiting until process done
+## Master Keybindings (Highlights)
 
+| Action                 | Shortcut                           |
+| ---------------------- | ---------------------------------- |
+| **Open Terminal**      | `Super + Return`                   |
+| **Close Window**       | `Super + Q`                        |
+| **Search (Ulauncher)** | `Ctrl + Space`                     |
+| **File Manager**       | `Super + Shift + F` or `Super + E` |
+| **Switch Workspace**   | `Super + 1, 2, 3, 4`               |
+| **Screenshot (Area)**  | `Super + Shift + S`                |
+
+---
+
+## Logging
+
+All installation progress is appended to `~/install_progress_log.txt`. No previous logs are deleted, allowing you to track your machine's history.

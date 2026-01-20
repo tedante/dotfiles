@@ -1,0 +1,53 @@
+[window]
+# 0.0 is completely transparent, 1.0 is opaque
+# 0.9 is the sweet spot for readability + aesthetics
+opacity = 0.90
+
+# Add some breathing room around the text
+padding = { x = 12, y = 12 }
+
+# Remove the title bar for a cleaner "tiling" look
+# Change to "Full" if you want the window controls back
+# "None" for hide window controller
+decorations = "Full"  
+
+[font]
+# Make sure you have installed a Nerd Font!
+size = 13.0
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+# --- Tokyo Night Color Scheme ---
+
+[colors.primary]
+background = "#1a1b26"
+foreground = "#c0caf5"
+
+[colors.normal]
+black =   "#15161e"
+red =     "#f7768e"
+green =   "#9ece6a"
+yellow =  "#e0af68"
+blue =    "#7aa2f7"
+magenta = "#bb9af7"
+cyan =    "#7dcfff"
+white =   "#a9b1d6"
+
+[colors.bright]
+black =   "#414868"
+red =     "#f7768e"
+green =   "#9ece6a"
+yellow =  "#e0af68"
+blue =    "#7aa2f7"
+magenta = "#bb9af7"
+cyan =    "#7dcfff"
+white =   "#c0caf5"
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }

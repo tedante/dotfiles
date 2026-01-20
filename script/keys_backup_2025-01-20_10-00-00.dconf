@@ -1,0 +1,7 @@
+[/]
+custom-list=['custom0', '__dummy__']
+
+[custom-keybindings/custom0]
+binding=['<Primary><Alt>x']
+command='/usr/bin/flameshot gui'
+name='flameshot'
