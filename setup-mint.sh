@@ -56,16 +56,26 @@ sudo apt install -y \
 mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat
 
-# 3. Default Terminal Configuration
-log_message "Step 3: Setting Alacritty as the default terminal"
-ALACRITTY_PATH=$(which alacritty)
+# Install Ghostty
+log_message "Installing Ghostty terminal"
+if ! command -v ghostty &>/dev/null; then
+  # Install Ghostty from official releases
+  GHOSTTY_VERSION="1.0.1"
+  wget -q "https://github.com/ghostty-org/ghostty/releases/download/v${GHOSTTY_VERSION}/ghostty_${GHOSTTY_VERSION}_amd64.deb" -O /tmp/ghostty.deb
+  sudo dpkg -i /tmp/ghostty.deb || sudo apt-get install -f -y
+  rm /tmp/ghostty.deb
+fi
 
-if [ -n "$ALACRITTY_PATH" ]; then
-  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$ALACRITTY_PATH" 50
-  sudo update-alternatives --set x-terminal-emulator "$ALACRITTY_PATH"
-  gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
+# 3. Default Terminal Configuration
+log_message "Step 3: Setting Ghostty as the default terminal"
+GHOSTTY_PATH=$(which ghostty)
+
+if [ -n "$GHOSTTY_PATH" ]; then
+  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$GHOSTTY_PATH" 50
+  sudo update-alternatives --set x-terminal-emulator "$GHOSTTY_PATH"
+  gsettings set org.cinnamon.desktop.default-applications.terminal exec 'ghostty'
   gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg ''
-  log_message "System-wide and Cinnamon terminal preference set to Alacritty"
+  log_message "System-wide and Cinnamon terminal preference set to Ghostty"
 fi
 
 # 4. External Keymap Setup
@@ -122,9 +132,11 @@ backup_for_stow() {
 backup_for_stow ~/.zshrc
 backup_for_stow ~/.p10k.zsh
 backup_for_stow ~/.config/alacritty
+backup_for_stow ~/.config/ghostty
 backup_for_stow ~/.config/nvim
 stow zsh
 stow alacritty
+stow ghostty
 stow nvim
 stow tmux
 
