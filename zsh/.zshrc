@@ -167,6 +167,7 @@ alias s="npx sequelize-cli"
 alias sreset="sreset"
 alias nd="nd "
 alias setupNginx=setup_nginx_proxy
+alias h="history | tail -n 15"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
