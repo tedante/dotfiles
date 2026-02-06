@@ -145,6 +145,15 @@ EOF
     fi
 }
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 # ==============================================================================
 # 5. ALIASES (Organized)
 # ==============================================================================
@@ -168,6 +177,8 @@ alias sreset="sreset"
 alias nd="nd "
 alias setupNginx=setup_nginx_proxy
 alias h="history | tail -n 15"
+alias zel="zellij"
+alias lazypodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
 
 # Git Aliases
 alias gc='git add . && git commit -m'
@@ -192,3 +203,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # Secret Overrides (Jika kamu punya API keys pribadi)
 [[ -f ~/.zshrc_local ]] && source ~/.zshrc_local
+
+# opencode
+export PATH=/home/tedante/.opencode/bin:$PATH
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
