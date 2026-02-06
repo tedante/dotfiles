@@ -18,7 +18,7 @@ fi
 cd "$HOME/dotfiles"
 
 # 3. Make scripts executable
-chmod +x setup-mint.sh setup-keymap.sh
+chmod +x script/mint/setup-mint.sh script/mint/setup-keys.sh
 
 # 4. Execute the master setup script
-./setup-mint.sh
+./script/mint/setup-mint.sh
