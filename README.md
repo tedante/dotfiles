@@ -9,14 +9,14 @@ For a fresh Linux Mint installation, you can set up everything with a single com
 ### Using Curl
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/tedante/dotfiles/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/tedante/dotfiles/main/install-mint.sh | bash
 
 ```
 
 ### Using Wget
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/tedante/dotfiles/main/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/tedante/dotfiles/main/install-mint.sh | bash
 
 ```
 
@@ -45,9 +45,11 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 ├── nvim/           # LazyVim configuration and plugins
 ├── tmux/           # Tmux terminal multiplexer config
 ├── zsh/            # .zshrc, .p10k.zsh, and custom functions
-├── setup-mint.sh   # Master installation & automation script
-├── setup-keymap.sh # Cinnamon desktop keybinding automation
-└── install.sh      # Remote bootstrap script for curl/wget
+├── script/
+│   └── mint/       # Linux Mint specific scripts
+│       ├── setup-mint.sh   # Master installation & automation script
+│       └── setup-keys.sh   # Cinnamon desktop keybinding automation
+└── install-mint.sh # Remote bootstrap script for curl/wget
 
 ```
 
