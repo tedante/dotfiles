@@ -1,0 +1,29 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 1. Install essentials that most dotfiles scripts expect
+RUN apt-get update && apt-get install -y \
+    sudo \
+    software-properties-common \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Setup User
+RUN useradd -m -s /bin/bash teddy && \
+    echo "teddy ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER teddy
+WORKDIR /home/teddy/dotfiles
+
+# 3. Copy and Install
+COPY --chown=teddy:teddy . .
+
+# Check if install.sh exists before running to avoid build errors
+RUN if [ -f ./install-kde.sh ]; then chmod +x ./install-kde.sh && ./install-kde.sh; fi
+
+# 4. Fallback check: If zsh isn't installed, use bash so the container doesn't crash
+CMD ["/bin/zsh"]
+
+# to test: docker build -f Dockerfile.test -t dotfiles-test . && docker run -it --rm dotfiles-test

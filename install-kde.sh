@@ -18,7 +18,7 @@ fi
 cd "$HOME/dotfiles"
 
 # 3. Make scripts executable
-chmod +x script/kde/setup-kde.sh script/kde/setup-keys.sh
+chmod +x script/common.sh script/kde/setup-kde.sh script/kde/setup-keys.sh 
 
 # 4. Execute the master setup script
 ./script/kde/setup-kde.sh
