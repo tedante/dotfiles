@@ -1,0 +1,11 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.util.dot"
+  ],
+  "install_version": 8,
+  "news": {
+    "NEWS.md": "11866"
+  },
+  "version": 8
+}
