@@ -179,6 +179,7 @@ alias setupNginx=setup_nginx_proxy
 alias h="history | tail -n 15"
 alias zel="zellij"
 alias lazypodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
+alias nrd="npm run dev"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
