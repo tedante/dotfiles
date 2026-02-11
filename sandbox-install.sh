@@ -29,3 +29,5 @@ yay -S postman-bin
 sudo pacman -S steam
 sudo pacman -S dbeaver
 yay -S visual-studio-code-bin
+sudo pacman -S github-cli
+sudo pacman -S yazi ffmpeg 7zip jq poppler fd ripgrep fzf zoxide resvg imagemagick
