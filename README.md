@@ -77,6 +77,8 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 │   └── mint/           # Linux Mint specific scripts
 │       ├── setup-mint.sh    # Mint master installation script
 │       └── setup-keys.sh    # Cinnamon keybinding automation
+```
+
 ### Linux Mint / Kubuntu (Ubuntu-based)
 
 The `setup-mint.sh` and `setup-kde.sh` scripts are idempotent and handle:
@@ -98,7 +100,8 @@ The `setup-cachy.sh` script is idempotent and handles:
 5. **AUR Packages:** Zoom, Discord, Slack, Zen Browser, Postman, Sublime Merge.
 6. **Fonts:** JetBrainsMono Nerd Font.
 7. **Language Managers:** NVM for Node.js.
-8
+   8
+
 ## Installation Details
 
 The `setup-mint.sh` script is idempotent and handles:
@@ -108,6 +111,22 @@ The `setup-mint.sh` script is idempotent and handles:
 3. **Fonts:** JetBrainsMono Nerd Font.
 4. **Language Managers:** NVM for Node.js.
 5. **Linking:** Automatic symlinking of configs via GNU Stow.
+
+---
+
+## Configuration
+
+### Local Zsh Customization
+
+If you want to add machine-specific configurations (like custom aliases, environment variables, or paths that shouldn't be tracked in git), you can use `.zshrc_local`:
+
+```bash
+cp ~/dotfiles/zsh/.zshrc_local_example ~/dotfiles/zsh/.zshrc_local
+```
+
+Then edit `~/dotfiles/zsh/.zshrc_local` with your local customizations. This file is sourced by `.zshrc` but ignored by git.
+
+---
 
 ### Manual Steps (Required)
 
@@ -137,4 +156,7 @@ Due to desktop environment limitations, these must be set manually in **System S
 ## Logging
 
 All installation progress is appended to `~/install_progress_log.txt`. No previous logs are deleted, allowing you to track your machine's history.
+
+```
+
 ```
