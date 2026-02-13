@@ -1,0 +1,26 @@
+# ==============================================================================
+# Zsh Local
+# ==============================================================================
+
+# Alias to navigate to code directory
+alias cdcode="cd ~/code"
+
+# ==============================================================================
+# Podman 
+# Uncomment the following lines if you want to use Podman as a Docker alternative
+# ==============================================================================
+# alias docker="podman"
+# alias lazypodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
+
+# ==============================================================================
+# Please add your local customizations below this line.
+# ==============================================================================
+# eval "$(vfox activate zsh)"
+
+# GVM
+# [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# opencode
+# export PATH=/home/tedante/.opencode/bin:$PATH
+
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"

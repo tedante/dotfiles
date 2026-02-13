@@ -159,7 +159,7 @@ function y() {
 # ==============================================================================
 # Replacement Aliases
 alias ls='eza -a -l -h --icons'
-alias bat='batcat'
+# alias bat='batcat' # Uncomment if batcat is the command on your system
 alias cat='bat --paging=never'
 alias grep='rg'
 alias c="clear"
@@ -170,42 +170,31 @@ alias nv="nvim"
 alias v="nvim"
 alias vzsh='nvim $DOTFILES/zsh/.zshrc'
 alias r="source ~/.zshrc"
-alias cdcode="cd ~/development"
-alias docker="podman"
 alias s="npx sequelize-cli"
 alias sreset="sreset"
 alias nd="nd "
 alias setupNginx=setup_nginx_proxy
 alias h="history | tail -n 15"
 alias zel="zellij"
-alias lazypodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
+alias ld="lazydocker"
+alias lg="lazygit"
 alias nrd="npm run dev"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
 alias gp='git push'
 alias gcl='git clone'
-
 # ==============================================================================
 # 6. EXTERNAL TOOLS INIT
 # ==============================================================================
 eval "$(zoxide init zsh)"
-eval "$(vfox activate zsh)"
 
 # NVM (Lazy Load Logic to keep startup fast)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# GVM
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # Powerlevel10k Config Source
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Secret Overrides (Jika kamu punya API keys pribadi)
 [[ -f ~/.zshrc_local ]] && source ~/.zshrc_local
-
-# opencode
-export PATH=/home/tedante/.opencode/bin:$PATH
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
