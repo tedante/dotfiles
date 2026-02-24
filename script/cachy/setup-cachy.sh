@@ -195,7 +195,6 @@ stow zsh
 stow alacritty
 stow ghostty
 stow nvim
-stow tmux
 stow zellij
 
 # ==============================================================================
