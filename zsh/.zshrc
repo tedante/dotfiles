@@ -154,6 +154,10 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+function removeNodeModules() {
+    find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
+}
+
 # ==============================================================================
 # 5. ALIASES (Organized)
 # ==============================================================================
