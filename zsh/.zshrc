@@ -80,12 +80,16 @@ function cjsbe() {
 function nd() {
     if ! npm list --depth=0 | grep -q nodemon; then
         echo "Nodemon missing. Installing..."
-        npm install -D nodemon
+        pnpm install -D nodemon
     fi
     npx nodemon "$1"
 }
 
 function sreset() {
+    if ! npm list --depth=0 | grep -q sequelize-cli; then 
+      echo "Sequlieze-cli missing. Installing"
+      pnpm i -D sequelize-cli
+    fi
     npx sequelize-cli db:drop && \
     npx sequelize-cli db:create && \
     npx sequelize-cli db:migrate && \

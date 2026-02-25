@@ -56,7 +56,7 @@ fi
 # Step 4: Install Core CLI Tools
 # ==============================================================================
 log_message "Step 4: Installing core CLI tools"
-sudo pacman -S --noconfirm \
+sudo pacman -S \
   zsh \
   git \
   stow \
@@ -87,7 +87,7 @@ yay -S --noconfirm resvg
 # Step 5: Install GUI Applications
 # ==============================================================================
 log_message "Step 5: Installing GUI applications"
-sudo pacman -S --noconfirm \
+sudo pacman -S \
   flameshot \
   code \
   ghostty \
@@ -99,7 +99,7 @@ sudo pacman -S --noconfirm \
 # Step 6: Install Applications from AUR
 # ==============================================================================
 log_message "Step 6: Installing applications from AUR"
-yay -S --noconfirm \
+yay -S \
   zoom \
   discord \
   slack-desktop \
@@ -113,7 +113,7 @@ yay -S --noconfirm \
 # Step 7: Setup Docker
 # ==============================================================================
 log_message "Step 7: Installing and configuring Docker"
-sudo pacman -S --noconfirm docker docker-compose
+sudo pacman -S docker docker-compose
 
 # Start the Docker daemon immediately
 sudo systemctl start docker.service
