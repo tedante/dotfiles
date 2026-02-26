@@ -77,6 +77,8 @@ sudo pacman -S \
   ffmpeg \
   p7zip \
   poppler \
+  kdenlive \
+  audacity \
   imagemagick
 
 log_message "Installing yazi and dependencies"
@@ -89,7 +91,6 @@ yay -S --noconfirm resvg
 log_message "Step 5: Installing GUI applications"
 sudo pacman -S \
   flameshot \
-  code \
   ghostty \
   timeshift \
   steam \
@@ -107,6 +108,8 @@ yay -S \
   zen-browser-bin \
   postman-bin \
   visual-studio-code-bin \
+  mongodb-compass \
+  heroic-games-launcher-bin \
   sublime-merge
 
 # ==============================================================================
