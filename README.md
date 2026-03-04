@@ -7,6 +7,7 @@ This repository contains my personal configuration files and automation scripts 
 - **Linux Mint (Cinnamon)** - Ubuntu-based
 - **Kubuntu (KDE Plasma)** - Ubuntu-based
 - **CachyOS** - Arch Linux-based
+- **macOS** - Darwin-based
 
 ## Quick One-Line Installation
 
@@ -40,6 +41,20 @@ curl -sSL https://raw.githubusercontent.com/tedante/dotfiles/main/install-cachy.
 wget -qO- https://raw.githubusercontent.com/tedante/dotfiles/main/install-cachy.sh | bash
 ```
 
+### macOS
+
+#### Using Curl
+
+```bash
+curl -sSL https://raw.githubusercontent.com/tedante/dotfiles/main/install-mac.sh | bash
+```
+
+#### Using Wget
+
+```bash
+wget -qO- https://raw.githubusercontent.com/tedante/dotfiles/main/install-mac.sh | bash
+```
+
 ---
 
 ## Overview
@@ -69,6 +84,7 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 ├── zellij/             # Zellij multiplexer configuration
 ├── script/
 │   ├── common.sh       # Shared functions for Ubuntu-based distros
+│   ├── install-mac.sh  # macOS master installation script
 │   ├── cachy/          # CachyOS (Arch Linux) specific scripts
 │   │   └── setup-cachy.sh   # Arch/CachyOS master setup script
 │   ├── kde/            # Kubuntu/KDE Plasma specific scripts
@@ -100,7 +116,19 @@ The `setup-cachy.sh` script is idempotent and handles:
 5. **AUR Packages:** Zoom, Discord, Slack, Zen Browser, Postman, Sublime Merge.
 6. **Fonts:** JetBrainsMono Nerd Font.
 7. **Language Managers:** NVM for Node.js.
-   8
+
+### macOS
+
+The `install-mac.sh` script is idempotent and handles:
+
+1. **Homebrew:** Automatic installation with Apple Silicon support.
+2. **Core CLI Tools:** git, stow, fzf, btop, eza, zoxide, bat, neovim, lazygit, lazydocker, zellij, gh, ripgrep, fd, jq, ffmpeg, p7zip, poppler, imagemagick, yazi.
+3. **GUI Applications:** Ghostty, VS Code, Docker Desktop, Discord, Slack, Zoom, Postman, MongoDB Compass, DBeaver, Sublime Merge, Steam.
+4. **Zinit:** Zsh plugin manager installation.
+5. **Fonts:** JetBrainsMono Nerd Font via Homebrew Cask.
+6. **Language Managers:** NVM for Node.js.
+7. **LazyVim:** Neovim starter configuration.
+8. **Linking:** Automatic symlinking of configs via GNU Stow.
 
 ## Installation Details
 
