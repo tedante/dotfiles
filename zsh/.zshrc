@@ -187,6 +187,7 @@ alias zel="zellij"
 alias ld="lazydocker"
 alias lg="lazygit"
 alias nrd="npm run dev"
+alias vdot="v $DOTFILES"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
