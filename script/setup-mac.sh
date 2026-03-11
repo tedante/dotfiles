@@ -117,8 +117,8 @@ fi
 log_message "Step 6: Installing fonts and development tools"
 
 # Install JetBrains Mono Nerd Font
-brew tap homebrew/cask-fonts
-brew install --cask font-jetbrains-mono-nerd-font
+#brew tap homebrew/cask-fonts
+#brew install --cask font-jetbrains-mono-nerd-font
 
 # Install NVM
 if [ ! -d "$HOME/.nvm" ]; then
