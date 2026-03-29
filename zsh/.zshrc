@@ -166,7 +166,8 @@ function removeNodeModules() {
 # 5. ALIASES (Organized)
 # ==============================================================================
 # Replacement Aliases
-alias ls='eza -a -l -h --icons'
+alias l='eza -a -l -h --icons'
+alias ls=l
 # alias bat='batcat' # Uncomment if batcat is the command on your system
 alias cat='bat --paging=never'
 alias grep='rg'
@@ -193,6 +194,17 @@ alias vdot="v $DOTFILES"
 alias gc='git add . && git commit -m'
 alias gp='git push'
 alias gcl='git clone'
+
+# Docker Aliases
+alias d="docker"
+alias dc="docker-compose"
+alias dps='docker ps'
+alias dpa='docker ps -a'
+alias dr='docker run -it --rm'
+alias dx='docker exec -it'
+alias dcu='docker-compose up -d'
+alias dcd='docker-compose down'
+
 # ==============================================================================
 # 6. EXTERNAL TOOLS INIT
 # ==============================================================================
