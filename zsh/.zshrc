@@ -193,6 +193,7 @@ alias ..="cd .."
 alias ....="cd ../.."
 alias m="mise"
 alias mr="mise run"
+alias t="tmux"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
