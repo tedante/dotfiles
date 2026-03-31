@@ -180,8 +180,6 @@ alias v="nvim"
 alias vzsh='nvim $DOTFILES/zsh/.zshrc'
 alias r="source ~/.zshrc"
 alias s="npx sequelize-cli"
-alias sreset="sreset"
-alias nd="nd "
 alias setupNginx=setup_nginx_proxy
 alias h="history | tail -n 15"
 alias zel="zellij"
@@ -189,6 +187,8 @@ alias ld="lazydocker"
 alias lg="lazygit"
 alias nrd="npm run dev"
 alias vdot="v $DOTFILES"
+alias ..="cd .."
+alias ....="cd ../.."
 
 # Git Aliases
 alias gc='git add . && git commit -m'
