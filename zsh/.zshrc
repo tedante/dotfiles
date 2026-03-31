@@ -189,6 +189,8 @@ alias nrd="npm run dev"
 alias vdot="v $DOTFILES"
 alias ..="cd .."
 alias ....="cd ../.."
+alias m="mise"
+alias mr="mise run"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
