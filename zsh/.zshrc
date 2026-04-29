@@ -180,6 +180,7 @@ alias v="nvim"
 alias vzsh='nvim $DOTFILES/zsh/.zshrc'
 alias vz="vzsh"
 alias vzl="v $DOTFILES/zsh/.zshrc_local"
+alias cddot="cd $DOTFILES"
 alias r="source ~/.zshrc"
 alias s="npx sequelize-cli"
 alias setupNginx=setup_nginx_proxy
@@ -194,6 +195,7 @@ alias ....="cd ../.."
 alias m="mise"
 alias mr="mise run"
 alias t="tmux"
+alias hsetup="pnpm i && sreset && nd app.js"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
