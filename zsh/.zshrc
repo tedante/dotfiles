@@ -217,6 +217,9 @@ alias dcd='docker-compose down'
 # ==============================================================================
 eval "$(zoxide init zsh)"
 
+# mise
+eval "$(mise activate zsh)"
+
 # NVM (Lazy Load Logic to keep startup fast)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
