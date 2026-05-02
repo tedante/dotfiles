@@ -30,13 +30,13 @@ log_message "===================================================="
 # Step 1: System Update
 # ==============================================================================
 log_message "Step 1: Updating system packages"
-sudo pacman -Syu --noconfirm
+sudo pacman -Syu
 
 # ==============================================================================
 # Step 2: Install Base Development Tools
 # ==============================================================================
 log_message "Step 2: Installing base development tools"
-sudo pacman -S --needed --noconfirm base-devel git
+sudo pacman -S --needed base-devel git
 
 # ==============================================================================
 # Step 3: Install AUR Helper (yay)
@@ -45,7 +45,7 @@ log_message "Step 3: Installing yay (AUR helper)"
 if ! command -v yay &>/dev/null; then
   git clone https://aur.archlinux.org/yay.git /tmp/yay
   cd /tmp/yay
-  makepkg -si --noconfirm
+  makepkg -si
   cd -
   rm -rf /tmp/yay
 else
@@ -79,11 +79,12 @@ sudo pacman -S \
   poppler \
   kdenlive \
   audacity \
+  tmux \
   imagemagick
 
 log_message "Installing yazi and dependencies"
-sudo pacman -S --noconfirm yazi
-yay -S --noconfirm resvg
+sudo pacman -S yazi
+yay -S resvg
 
 # ==============================================================================
 # Step 5: Install GUI Applications
@@ -92,7 +93,6 @@ log_message "Step 5: Installing GUI applications"
 sudo pacman -S \
   flameshot \
   ghostty \
-  timeshift \
   steam \
   dbeaver
 
@@ -106,6 +106,7 @@ yay -S \
   slack-desktop \
   xpipe \
   zen-browser-bin \
+  brave-bin \
   postman-bin \
   visual-studio-code-bin \
   mongodb-compass \
@@ -192,6 +193,7 @@ backup_for_stow ~/.config/alacritty
 backup_for_stow ~/.config/ghostty
 backup_for_stow ~/.config/nvim
 backup_for_stow ~/.config/zellij
+backup_for_stow ~/.config/tmux
 
 # Stow configurations
 stow zsh
@@ -199,6 +201,7 @@ stow alacritty
 stow ghostty
 stow nvim
 stow zellij
+stow tmux
 
 # ==============================================================================
 # Step 11: Setup Local Bin Directory
@@ -222,6 +225,10 @@ if [ "$SHELL" != "$(which zsh)" ]; then
 else
   log_message "Zsh is already the default shell"
 fi
+
+
+kwriteconfig6 --file kwinrc --group Desktops --key Number 4
+qdbus6 org.kde.KWin /KWin reconfigure
 
 log_message "===================================================="
 log_message "CachyOS setup complete!"
