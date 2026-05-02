@@ -227,8 +227,25 @@ else
 fi
 
 
+# ==============================================================================
+# Step 13: Create 4 virtual desktops in KDE Plasma
+# ==============================================================================
 kwriteconfig6 --file kwinrc --group Desktops --key Number 4
 qdbus6 org.kde.KWin /KWin reconfigure
+
+
+# ==============================================================================
+# Step 14: Setup Shortcuts for KDE Plasma
+# ==============================================================================
+log_message "Step 14: Setting up KDE Plasma keyboard shortcuts"
+
+if [ -f "$DOTFILES_DIR/script/cachy/shortcut.sh" ]; then
+  bash "$DOTFILES_DIR/script/cachy/shortcut.sh"
+  log_message "KDE Plasma shortcuts configured successfully"
+else
+  log_message "WARNING: Shortcut setup script not found at $DOTFILES_DIR/script/cachy/shortcut.sh"
+fi
+
 
 log_message "===================================================="
 log_message "CachyOS setup complete!"
