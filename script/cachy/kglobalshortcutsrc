@@ -271,5 +271,9 @@ _launch=Meta+Shift+C
 [services][com.mitchellh.ghostty.desktop]
 _launch=Meta+Return
 
+[services][org.kde.spectacle.desktop]
+CurrentMonitorScreenShot=
+OpenWithoutScreenshot=
+
 [services][zen.desktop]
 _launch=Meta+B
