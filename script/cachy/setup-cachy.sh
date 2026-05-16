@@ -77,8 +77,6 @@ sudo pacman -S \
   ffmpeg \
   p7zip \
   poppler \
-  kdenlive \
-  audacity \
   tmux \
   imagemagick
 
@@ -94,6 +92,10 @@ sudo pacman -S \
   flameshot \
   ghostty \
   steam \
+  kdenlive \
+  audacity \
+  vlc \
+  obs-studio \
   dbeaver
 
 # ==============================================================================
@@ -111,6 +113,7 @@ yay -S \
   visual-studio-code-bin \
   mongodb-compass \
   heroic-games-launcher-bin \
+  flameshot-git \
   sublime-merge
 
 # ==============================================================================
