@@ -78,6 +78,8 @@ sudo pacman -S \
   p7zip \
   poppler \
   tmux \
+  zed \
+  emacs \
   imagemagick
 
 log_message "Installing yazi and dependencies"
@@ -229,13 +231,11 @@ else
   log_message "Zsh is already the default shell"
 fi
 
-
 # ==============================================================================
 # Step 13: Create 4 virtual desktops in KDE Plasma
 # ==============================================================================
 kwriteconfig6 --file kwinrc --group Desktops --key Number 4
 qdbus6 org.kde.KWin /KWin reconfigure
-
 
 # ==============================================================================
 # Step 14: Setup Shortcuts for KDE Plasma
@@ -248,7 +248,6 @@ if [ -f "$DOTFILES_DIR/script/cachy/shortcut.sh" ]; then
 else
   log_message "WARNING: Shortcut setup script not found at $DOTFILES_DIR/script/cachy/shortcut.sh"
 fi
-
 
 log_message "===================================================="
 log_message "CachyOS setup complete!"
