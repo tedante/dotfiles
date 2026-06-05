@@ -80,6 +80,7 @@ sudo pacman -S \
   tmux \
   zed \
   emacs \
+  mise \
   imagemagick
 
 log_message "Installing yazi and dependencies"
