@@ -81,6 +81,7 @@ sudo pacman -S \
   zed \
   emacs \
   mise \
+  obsidian \
   imagemagick
 
 log_message "Installing yazi and dependencies"
