@@ -33,6 +33,7 @@ link_dotfiles() {
   backup_for_stow ~/.config/ghostty
   backup_for_stow ~/.config/nvim
   backup_for_stow ~/.config/zellij
+  backup_for_stow ~/.config/herdr
   
   # Stow configurations
   stow zsh
@@ -40,6 +41,7 @@ link_dotfiles() {
   stow ghostty
   stow nvim
   stow zellij
+  stow herdr
 }
 
 link_dotfiles

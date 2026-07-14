@@ -88,6 +88,9 @@ log_message "Installing yazi and dependencies"
 sudo pacman -S yazi
 yay -S resvg
 
+log_message "Installing herdr (terminal multiplexer via mise)"
+mise use -g herdr@latest
+
 # ==============================================================================
 # Step 5: Install GUI Applications
 # ==============================================================================
@@ -118,6 +121,7 @@ yay -S \
   mongodb-compass \
   heroic-games-launcher-bin \
   flameshot-git \
+  openwork-bin \
   sublime-merge
 
 # ==============================================================================
@@ -201,6 +205,7 @@ backup_for_stow ~/.config/ghostty
 backup_for_stow ~/.config/nvim
 backup_for_stow ~/.config/zellij
 backup_for_stow ~/.config/tmux
+backup_for_stow ~/.config/herdr
 
 # Stow configurations
 stow zsh
@@ -209,6 +214,7 @@ stow ghostty
 stow nvim
 stow zellij
 stow tmux
+stow herdr
 
 # ==============================================================================
 # Step 11: Setup Local Bin Directory

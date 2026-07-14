@@ -1,0 +1,92 @@
+# herdr configuration
+# Adapted from tmux keybinds — prefix C-a, | and - for splits, vim nav
+
+[theme]
+# Built-in themes: catppuccin, terminal, tokyo-night, dracula, nord,
+#                  gruvbox, one-dark, solarized, kanagawa, rose-pine,
+#                  vesper
+name = "catppuccin"
+
+[terminal]
+# CWD policy for new panes/tabs: inherit from source pane
+new_cwd = "follow"
+
+[keys]
+# Prefix key — samain tmux: C-a instead of default C-b
+prefix = "ctrl+a"
+
+# Prefix-mode actions
+help = "prefix+?"
+settings = "prefix+s"
+detach = "prefix+q"
+reload_config = "prefix+shift+r"
+workspace_picker = "prefix+o"
+goto = "prefix+g"
+new_workspace = "prefix+shift+n"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+
+# Tabs — match tmux defaults
+new_tab = "prefix+c"
+rename_tab = "prefix+shift+t"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+close_tab = "prefix+shift+x"
+
+# Panes — tmux style: | = horizontal, - = vertical
+split_vertical = "prefix+minus"      # tmux: Prefix + -  → split atas-bawah
+split_horizontal = "prefix+|"        # tmux: Prefix + |  → split kiri-kanan
+close_pane = "prefix+x"
+zoom = "prefix+z"                    # fullscreen pane toggle
+rename_pane = "prefix+shift+p"
+edit_scrollback = "prefix+e"
+
+# Pane navigation — vim-style h/j/k/l
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+cycle_pane_next = "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"
+# last_pane = ""  # use double-tap prefix (C-a C-a) for back-and-forth, like tmux
+
+# Resize mode — modal: prefix+r then h/j/k/l or arrows
+resize_mode = "prefix+r"
+
+# Sidebar
+toggle_sidebar = "prefix+b"
+
+# Navigate-mode movement (while navigate mode is open)
+navigate_pane_left = "h"
+navigate_pane_down = "j"
+navigate_pane_up = "k"
+navigate_pane_right = "l"
+
+[ui]
+sidebar_width = 26
+sidebar_min_width = 18
+sidebar_max_width = 36
+mouse_capture = true
+pane_borders = true
+pane_gaps = true
+confirm_close = true
+prompt_new_tab_name = false
+hide_tab_bar_when_single_tab = false
+accent = "blue"
+
+[ui.toast]
+delivery = "herdr"
+
+[ui.toast.herdr]
+position = "bottom-right"
+
+[ui.toast.clipboard]
+enabled = true
+position = "bottom-center"
+
+[session]
+resume_agents_on_restore = true
+
+[advanced]
+scrollback_limit_bytes = 10000000
