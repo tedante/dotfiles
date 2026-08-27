@@ -4,6 +4,8 @@ font-size = 13
 font-style = "Regular"
 font-style-bold = "Bold"
 
+clipboard-read = allow
+
 # --- Window Aesthetics ---
 background-opacity = 0.9
 window-padding-x = 12

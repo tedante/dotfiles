@@ -197,6 +197,7 @@ alias m="mise"
 alias mr="mise run"
 alias t="tmux"
 alias hsetup="pnpm i && sreset && nd app.js"
+alias he="herdr"
 
 # Git Aliases
 alias gc='git add . && git commit -m'
