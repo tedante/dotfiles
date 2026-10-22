@@ -122,6 +122,7 @@ yay -S \
   heroic-games-launcher-bin \
   flameshot-git \
   openwork-bin \
+  stremio \
   sublime-merge
 
 # ==============================================================================
