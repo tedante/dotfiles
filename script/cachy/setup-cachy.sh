@@ -207,8 +207,6 @@ backup_for_stow ~/.config/nvim
 backup_for_stow ~/.config/zellij
 backup_for_stow ~/.config/tmux
 backup_for_stow ~/.config/herdr
-backup_for_stow ~/.config/systemd/user/organize-download.service
-backup_for_stow ~/.config/systemd/user/organize-download.timer
 
 # Stow configurations
 stow zsh
@@ -218,11 +216,9 @@ stow nvim
 stow zellij
 stow tmux
 stow herdr
-stow systemd
 
-# Reload user units and enable the hourly Downloads organizer
-systemctl --user daemon-reload
-systemctl --user enable --now organize-download.timer
+# The hourly maintenance timers (organize-download, push-dotfiles) are NOT
+# enabled here. They are opt-in; run script/automation/enable-timers.sh.
 
 # ==============================================================================
 # Step 11: Setup Local Bin Directory
@@ -272,6 +268,7 @@ log_message ""
 log_message "Next steps:"
 log_message "  1. Logout and login again for group changes to take effect"
 log_message "  2. Setup Git with 'cd $DOTFILES_DIR && ./setup-git.sh'"
-log_message "  3. Reboot to ensure all changes take effect"
+log_message "  3. Enable hourly automation with '$DOTFILES_DIR/script/automation/enable-timers.sh'"
+log_message "  4. Reboot to ensure all changes take effect"
 log_message ""
 log_message "Log file saved to: $log_file"
