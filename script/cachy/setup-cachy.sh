@@ -207,6 +207,8 @@ backup_for_stow ~/.config/nvim
 backup_for_stow ~/.config/zellij
 backup_for_stow ~/.config/tmux
 backup_for_stow ~/.config/herdr
+backup_for_stow ~/.config/systemd/user/organize-download.service
+backup_for_stow ~/.config/systemd/user/organize-download.timer
 
 # Stow configurations
 stow zsh
@@ -216,6 +218,11 @@ stow nvim
 stow zellij
 stow tmux
 stow herdr
+stow systemd
+
+# Reload user units and enable the hourly Downloads organizer
+systemctl --user daemon-reload
+systemctl --user enable --now organize-download.timer
 
 # ==============================================================================
 # Step 11: Setup Local Bin Directory

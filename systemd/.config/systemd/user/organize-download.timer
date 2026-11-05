@@ -1,0 +1,10 @@
+[Unit]
+Description=Run organize-download every hour
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+Unit=organize-download.service
+
+[Install]
+WantedBy=timers.target

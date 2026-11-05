@@ -1,0 +1,6 @@
+[Unit]
+Description=Organize ~/Downloads into type-based subfolders
+
+[Service]
+Type=oneshot
+ExecStart=%h/dotfiles/script/organize-folder.sh %h/Downloads
