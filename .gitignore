@@ -8,3 +8,6 @@ systemd/.config/systemd/user/*.wants/
 
 # Local issue tracker and specs (skills write here)
 .scratch/
+
+# opencode credential: never vendor or publish
+opencode/.config/opencode/service.json
