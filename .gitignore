@@ -5,3 +5,6 @@ DS_Store
 # systemd writes enablement symlinks here; ~/.config/systemd is stowed into
 # systemd/.config/systemd, so they would otherwise land in the repo.
 systemd/.config/systemd/user/*.wants/
+
+# Local issue tracker and specs (skills write here)
+.scratch/
