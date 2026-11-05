@@ -56,6 +56,31 @@ is_linked() {
   $any
 }
 
+# --- secret guard ---------------------------------------------------------------
+# The package is what becomes public, so inspect the package, not the target.
+# Refuse if any file would expose a credential. Only paths are printed.
+SECRET_NAMES='service\.json|\.env(\..*)?|id_rsa|id_ed25519|id_ecdsa|credentials|\.netrc'
+SECRET_CONTENT='-----BEGIN [A-Z ]*PRIVATE KEY-----|(ghp|gho|ghs|ghu)_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|(AKIA|ASIA)[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|(api[_-]?key|secret|passwd|password|token)[[:space:]]*[:=][[:space:]]*["'"'"']?[A-Za-z0-9/+_-]{16,}'
+
+check_secrets() {
+  local found=0 f hit
+
+  while IFS= read -r -d '' f; do
+    if printf '%s\n' "${f##*/}" | grep -qE "^($SECRET_NAMES)$"; then
+      printf '  secret-risk: %s\n' "${f#"$DOTFILES_DIR/"}"
+      found=1
+      continue
+    fi
+    while IFS= read -r hit; do
+      [[ -n $hit ]] || continue
+      printf '  secret-risk: %s:%s\n' "${f#"$DOTFILES_DIR/"}" "$hit"
+      found=1
+    done < <(grep -nE -e "$SECRET_CONTENT" -- "$f" 2>/dev/null | cut -d: -f1 || true)
+  done < <(package_files)
+
+  return "$found"
+}
+
 # --- preflight ------------------------------------------------------------------
 [[ -d $DOTFILES_DIR ]] || die "dotfiles directory not found: $DOTFILES_DIR"
 [[ -d $PACKAGE_DIR ]] || die "package not found: $PACKAGE_DIR"
@@ -64,6 +89,14 @@ command -v stow >/dev/null 2>&1 || die "stow is not installed"
 info "repo:    $DOTFILES_DIR"
 info "package: $PACKAGE"
 info "target:  $TARGET_DIR"
+
+if [[ $MODE == link ]]; then
+  if ! check_secrets; then
+    printf '\nerror: package contains files that look like credentials (listed above)\n' >&2
+    printf 'Remove them from the package before linking. Nothing was changed.\n' >&2
+    exit 1
+  fi
+fi
 
 # --- status ---------------------------------------------------------------------
 if [[ $MODE == status ]]; then
