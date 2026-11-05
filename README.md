@@ -53,6 +53,7 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 ├── zellij/             # Zellij multiplexer configuration
 ├── tmux/               # Tmux multiplexer config and plugins
 ├── systemd/            # Stowed user units (.config/systemd/user)
+├── opencode/           # Stowed opencode config (credential excluded)
 ├── templates/          # Project scaffolding used by zsh's cjsbe
 ├── script/
 │   ├── common.sh       # Shared functions for Ubuntu-based distros
@@ -60,7 +61,8 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 │   ├── organize-folder.sh   # Sort a Downloads folder by file type
 │   ├── push-dotfiles.sh     # Push committed changes, never commits
 │   ├── automation/
-│   │   └── enable-timers.sh # Opt-in: enable/disable the hourly timers
+│   │   ├── enable-timers.sh # Opt-in: enable/disable the hourly timers
+│   │   └── link-opencode.sh # Opt-in: link/unlink the opencode package
 │   ├── cachy/          # CachyOS (Arch Linux) specific scripts
 │   ├── kde/            # Kubuntu/KDE Plasma specific scripts
 │   └── mint/           # Linux Mint specific scripts

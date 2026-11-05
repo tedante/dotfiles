@@ -1,6 +1,6 @@
 # Maintenance Scripts
 
-Two standalone scripts keep the machine tidy. Neither is called by the install scripts; run them by hand or schedule them (see [Scheduling](scheduling.md)).
+Three standalone scripts keep the machine tidy and in sync. None is called by the install scripts; run them by hand or schedule them (see [Scheduling](scheduling.md)).
 
 ## `script/organize-folder.sh`
 
@@ -54,3 +54,27 @@ Checks performed, in order:
 Requires SSH access to GitHub (`git remote -v` must show `git@github.com:...`). For HTTPS remotes run `gh auth setup-git` first, otherwise `git push` fails with `could not read Username`.
 
 Exit codes: `0` pushed or nothing to do, `1` refused (dirty, diverged, behind) or failed.
+
+## `script/automation/link-opencode.sh`
+
+Links the `opencode/` package into `~/.config/opencode` so the agent configuration is versioned and restorable. Linking is opt-in: no install script does it.
+
+```bash
+./script/automation/link-opencode.sh            # link (backs up conflicts first)
+./script/automation/link-opencode.sh --unlink   # remove the package's symlinks
+./script/automation/link-opencode.sh --status   # report linked/not linked
+```
+
+The script stows with `--no-folding`, so `~/.config/opencode` stays a real directory and each packaged file is an individual symlink. Anything that creates new files there (session history, caches) stays out of the repo instead of landing inside it.
+
+If a real file already sits at a packaged path, it is renamed to `<path>.bak` before linking. Unrelated files in the same directory are never touched.
+
+`--status` exits `0` when linked and `1` when not linked, and changes nothing.
+
+### The credential is deliberately excluded
+
+`~/.config/opencode/service.json` holds a password. This repository is public, so that file is **not** part of the package and is listed in `.gitignore`. The linking script enforces the exclusion: before stowing it inspects the package contents, and if any file matches a credential filename (`service.json`, `.env`, `id_rsa`, …) or contains a token shape, it aborts with a non-zero exit and prints the offending path. Only the path is printed, never the value.
+
+That guard is not a formality. Adding the secret back to the package "to keep the config complete" would publish it on the next push.
+
+`DOTFILES_DIR` overrides the repo location, which is what makes the script testable against a throwaway home directory.
