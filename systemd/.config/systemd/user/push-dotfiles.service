@@ -1,0 +1,6 @@
+[Unit]
+Description=Push committed dotfiles changes to origin
+
+[Service]
+Type=oneshot
+ExecStart=%h/dotfiles/script/push-dotfiles.sh -p %h/dotfiles

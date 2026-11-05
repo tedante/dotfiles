@@ -1,0 +1,10 @@
+[Unit]
+Description=Run push-dotfiles every hour
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+Unit=push-dotfiles.service
+
+[Install]
+WantedBy=timers.target
