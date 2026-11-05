@@ -1,6 +1,6 @@
 # Maintenance Scripts
 
-Three standalone scripts keep the machine tidy and in sync. None is called by the install scripts; run them by hand or schedule them (see [Scheduling](scheduling.md)).
+Three standalone scripts keep the machine tidy and in sync. None is called by the install scripts; run them by hand or schedule the first two (see [Scheduling](scheduling.md)).
 
 ## `script/organize-folder.sh`
 

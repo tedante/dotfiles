@@ -10,4 +10,10 @@ systemd/.config/systemd/user/*.wants/
 .scratch/
 
 # opencode credential: never vendor or publish
-opencode/.config/opencode/service.json
+opencode/**/service.json
+opencode/**/.env
+opencode/**/.env.*
+opencode/**/id_rsa
+opencode/**/id_ed25519
+opencode/**/*.pem
+opencode/**/*.key

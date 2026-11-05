@@ -76,7 +76,7 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 | -------------------------------------------------------- | --------------------------------------------------------------- |
 | [Installation](docs/installation.md)                     | Per-distro setup details, packages installed, logging           |
 | [Configuration](docs/configuration.md)                   | Local Zsh customization, manual shortcut steps                  |
-| [Maintenance Scripts](docs/maintenance-scripts.md)       | `organize-folder.sh`, `push-dotfiles.sh`                        |
+| [Maintenance Scripts](docs/maintenance-scripts.md)       | `organize-folder.sh`, `push-dotfiles.sh`, `link-opencode.sh`    |
 | [Scheduling](docs/scheduling.md)                         | Systemd timers, `enable-timers.sh`, caveats                     |
 | [Keybindings](docs/keybindings.md)                       | Desktop shortcuts, Vim cheatsheet                               |
 

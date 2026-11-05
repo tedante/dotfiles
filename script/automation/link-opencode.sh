@@ -59,14 +59,15 @@ is_linked() {
 # --- secret guard ---------------------------------------------------------------
 # The package is what becomes public, so inspect the package, not the target.
 # Refuse if any file would expose a credential. Only paths are printed.
-SECRET_NAMES='service\.json|\.env(\..*)?|id_rsa|id_ed25519|id_ecdsa|credentials|\.netrc'
+# Names are anchored and fully escaped: a bare . would also match "serviceXjson".
+SECRET_NAMES='^service\.json$|^\.env(\..*)?$|^id_rsa$|^id_ed25519$|^id_ecdsa$|^credentials$|^\.netrc$|^\.(pem|key|p12|pfx)$'
 SECRET_CONTENT='-----BEGIN [A-Z ]*PRIVATE KEY-----|(ghp|gho|ghs|ghu)_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|(AKIA|ASIA)[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|(api[_-]?key|secret|passwd|password|token)[[:space:]]*[:=][[:space:]]*["'"'"']?[A-Za-z0-9/+_-]{16,}'
 
-check_secrets() {
+package_has_secrets() {
   local found=0 f hit
 
   while IFS= read -r -d '' f; do
-    if printf '%s\n' "${f##*/}" | grep -qE "^($SECRET_NAMES)$"; then
+    if printf '%s\n' "${f##*/}" | grep -qE -e "$SECRET_NAMES"; then
       printf '  secret-risk: %s\n' "${f#"$DOTFILES_DIR/"}"
       found=1
       continue
@@ -78,7 +79,10 @@ check_secrets() {
     done < <(grep -nE -e "$SECRET_CONTENT" -- "$f" 2>/dev/null | cut -d: -f1 || true)
   done < <(package_files)
 
-  return "$found"
+  # Bash convention: success (0) means "has secrets", so `if package_has_secrets`
+  # reads naturally at the call site.
+  if (( found > 0 )); then return 0; fi
+  return 1
 }
 
 # --- preflight ------------------------------------------------------------------
@@ -91,7 +95,7 @@ info "package: $PACKAGE"
 info "target:  $TARGET_DIR"
 
 if [[ $MODE == link ]]; then
-  if ! check_secrets; then
+  if package_has_secrets; then
     printf '\nerror: package contains files that look like credentials (listed above)\n' >&2
     printf 'Remove them from the package before linking. Nothing was changed.\n' >&2
     exit 1
@@ -126,17 +130,19 @@ if is_linked; then
   exit 0
 fi
 
-# Back up a real directory sitting at the target. Stow links file by file, so a
-# plain directory target is expected; only a conflicting non-symlink entry at a
-# packaged path would make stow refuse.
+# Back up a real file sitting at a packaged path. Stow links file by file, so a
+# plain directory target is expected; only a conflicting non-symlink *file* at a
+# packaged path needs moving. Never clobber an existing backup, and never move a
+# directory (that would take unrelated files with it).
 if [[ -e $TARGET_DIR && ! -L $TARGET_DIR && -d $TARGET_DIR ]]; then
-  local_file=""
   while IFS= read -r -d '' f; do
     rel=${f#"$PACKAGE_DIR/"}
-    if [[ -e $HOME/$rel && ! -L $HOME/$rel ]]; then
-      info "backing up: $HOME/$rel -> $HOME/$rel.bak"
-      mv "$HOME/$rel" "$HOME/$rel.bak"
+    [[ -f $HOME/$rel && ! -L $HOME/$rel ]] || continue
+    if [[ -e $HOME/$rel.bak ]]; then
+      die "backup already exists: $HOME/$rel.bak (move it aside, then re-run)"
     fi
+    info "backing up: $HOME/$rel -> $HOME/$rel.bak"
+    mv -- "$HOME/$rel" "$HOME/$rel.bak"
   done < <(package_files)
 fi
 
@@ -145,5 +151,9 @@ cd -- "$DOTFILES_DIR" || die "cannot enter $DOTFILES_DIR"
 # so later additions to ~/.config/opencode do not land in the repo.
 # --target is explicit: when DOTFILES_DIR is overridden, the default target
 # (the parent of the repo) is not $HOME.
-stow --no-folding --target="$HOME" "$PACKAGE"
+if ! stow --no-folding --target="$HOME" "$PACKAGE"; then
+  printf 'error: stow failed; any files renamed to .bak above were kept\n' >&2
+  printf 'Restore them with: mv <file>.bak <file>\n' >&2
+  exit 1
+fi
 info "linked: $PACKAGE"
