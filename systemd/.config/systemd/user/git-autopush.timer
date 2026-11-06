@@ -1,0 +1,10 @@
+[Unit]
+Description=Run git-autopush every 15 minutes
+
+[Timer]
+OnCalendar=*:7/15
+Persistent=true
+Unit=git-autopush.service
+
+[Install]
+WantedBy=timers.target

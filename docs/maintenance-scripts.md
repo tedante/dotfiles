@@ -33,27 +33,41 @@ Behavior:
 
 To add a type, add one entry to the `DEST` array at the top of the script — the folder is created automatically.
 
-## `script/push-dotfiles.sh`
+## `script/git-autopush.sh`
 
-Pushes committed changes in the dotfiles repo to `origin`. It **never commits**: if the working tree is dirty it stops and prints what is pending, so you stay in control of what gets published.
+Commits and/or pushes the repos listed in `script/repos-auto-push`. That file is gitignored because the paths are machine-specific. Copy the tracked `script/repos-auto-push.example` to create it. Each line is a path and a mode:
 
-```bash
-./script/push-dotfiles.sh                    # dry run, show what would be pushed
-./script/push-dotfiles.sh -p                 # actually push
-./script/push-dotfiles.sh -p /path/to/repo   # operate on another clone
+```
+/home/you/dotfiles   push
+/home/you/notes      commit
 ```
 
-Checks performed, in order:
+The default list sits next to the script, so it is found no matter where the repo is cloned or what the current directory is.
 
-1. **Dirty tree** — refuses to run and lists every pending file. Commit or discard first.
-2. **Divergence** — if the remote has commits you do not have, it prints both sides' history and exits non-zero. It never merges or rebases.
-3. **Behind** — if you are only behind, it tells you to pull and exits.
-4. **Secret scan** — inspects every commit that would be pushed, not just the final diff. A secret added in one commit and deleted in a later one is still caught. Matches GitHub/AWS/OpenAI/Slack token shapes, private key headers, and credential-style assignments, plus `.env`, `*.pem`, `*.key`, `id_rsa` and similar filenames. Only `file:line` is printed, never the matched value. `.env.example`, `.sample` and `.template` are allowed.
-5. **Push** — only after all of the above pass.
+- `commit` stages everything with `git add -A`, commits with a `sync: <host> <date> (<n> files)` message, then pushes.
+- `push` never commits. A dirty tree stops the run and lists what is pending.
+
+Blank lines and `#` comments are ignored. Every entry is attempted even if an earlier one fails; the script exits non-zero at the end and names the failures.
+
+```bash
+./script/git-autopush.sh                 # dry run, every repo in the list
+./script/git-autopush.sh -p              # actually commit and push
+./script/git-autopush.sh -p /path/to/list   # use another list
+```
+
+Checks performed per repo, in order:
+
+1. **Secrets in untracked files** (`commit` mode only) — scanned before they become history, because removing one afterwards needs a history rewrite rather than an edit.
+2. **Dirty tree** — a `push` entry refuses and lists every pending file.
+3. **Index lock** — if another git process holds `index.lock`, it waits up to 60 seconds, then gives up rather than committing a half-written index.
+4. **Divergence** — if the remote has commits you do not have, it prints both sides' history and exits non-zero. It never merges or rebases.
+5. **Behind** — if you are only behind, it tells you to pull and exits.
+6. **Secret scan** — inspects every commit that would be pushed, not just the final diff. A secret added in one commit and deleted in a later one is still caught. Matches GitHub/AWS/OpenAI/Slack token shapes, private key headers, and credential-style assignments, plus `.env`, `*.pem`, `*.key`, `id_rsa` and similar filenames. Only `file:line` is printed, never the matched value. `.env.example`, `.sample` and `.template` are allowed.
+7. **Push** — only after all of the above pass.
 
 Requires SSH access to GitHub (`git remote -v` must show `git@github.com:...`). For HTTPS remotes run `gh auth setup-git` first, otherwise `git push` fails with `could not read Username`.
 
-Exit codes: `0` pushed or nothing to do, `1` refused (dirty, diverged, behind) or failed.
+Exit codes: `0` all repos handled, `1` any repo refused or failed.
 
 ## `script/automation/link-opencode.sh`
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Enable or disable the hourly maintenance timers (organize-folder, push-dotfiles).
+# Enable or disable the maintenance timers (organize-download, git-autopush).
 # Usage: enable-timers.sh [--disable] [--status]
 #   (default)   stow the units, reload systemd, enable both timers now
 #   --disable   stop and disable both timers
@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-TIMERS=(organize-download.timer push-dotfiles.timer)
+TIMERS=(organize-download.timer git-autopush.timer)
 MODE=enable
 
 usage() {
@@ -83,4 +83,6 @@ done
 
 info ""
 info "next runs:"
-systemd-analyze --user calendar hourly 2>/dev/null | head -1 || true
+for t in "${TIMERS[@]}"; do
+  printf '  %s\n' "$(systemctl --user list-timers --no-pager "$t" 2>/dev/null | sed -n '2p')"
+done

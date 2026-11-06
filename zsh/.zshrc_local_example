@@ -24,3 +24,11 @@ alias cdcode="cd ~/code"
 # export PATH=/home/tedante/.opencode/bin:$PATH
 
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+# ==============================================================================
+# git-autopush
+# The timer reads script/repos-auto-push in the dotfiles repo, not this file.
+# These variables are for the shell: a path to cd into and an alias to edit
+# the list.
+# ==============================================================================
+export BRAINVERSE_DIR=$HOME/notes
+alias vap='${EDITOR:-vim} $DOTFILES/script/repos-auto-push'

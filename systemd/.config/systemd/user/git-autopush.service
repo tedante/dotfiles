@@ -1,0 +1,6 @@
+[Unit]
+Description=Commit and push the repos listed in script/repos-auto-push
+
+[Service]
+Type=oneshot
+ExecStart=%h/dotfiles/script/git-autopush.sh -p

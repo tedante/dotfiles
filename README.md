@@ -59,9 +59,10 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 │   ├── common.sh       # Shared functions for Ubuntu-based distros
 │   ├── install-server.sh    # VPS bootstrap (nginx, ufw, nvm, pm2)
 │   ├── organize-folder.sh   # Sort a Downloads folder by file type
-│   ├── push-dotfiles.sh     # Push committed changes, never commits
+│   ├── git-autopush.sh      # Commit/push the repos in repos-auto-push
+│   ├── repos-auto-push.example  # Copy to repos-auto-push (gitignored) per machine
 │   ├── automation/
-│   │   ├── enable-timers.sh # Opt-in: enable/disable the hourly timers
+│   │   ├── enable-timers.sh # Opt-in: enable/disable the maintenance timers
 │   │   └── link-opencode.sh # Opt-in: link/unlink the opencode package
 │   ├── cachy/          # CachyOS (Arch Linux) specific scripts
 │   ├── kde/            # Kubuntu/KDE Plasma specific scripts
@@ -76,7 +77,7 @@ The setup follows a "Modern Unix" philosophy, replacing standard tools with fast
 | -------------------------------------------------------- | --------------------------------------------------------------- |
 | [Installation](docs/installation.md)                     | Per-distro setup details, packages installed, logging           |
 | [Configuration](docs/configuration.md)                   | Local Zsh customization, manual shortcut steps                  |
-| [Maintenance Scripts](docs/maintenance-scripts.md)       | `organize-folder.sh`, `push-dotfiles.sh`, `link-opencode.sh`    |
+| [Maintenance Scripts](docs/maintenance-scripts.md)       | `organize-folder.sh`, `git-autopush.sh`, `link-opencode.sh`     |
 | [Scheduling](docs/scheduling.md)                         | Systemd timers, `enable-timers.sh`, caveats                     |
 | [Keybindings](docs/keybindings.md)                       | Desktop shortcuts, Vim cheatsheet                               |
 

@@ -217,7 +217,7 @@ stow zellij
 stow tmux
 stow herdr
 
-# The hourly maintenance timers (organize-download, push-dotfiles) are NOT
+# The maintenance timers (organize-download, git-autopush) are NOT
 # enabled here. They are opt-in; run script/automation/enable-timers.sh.
 
 # ==============================================================================
@@ -268,7 +268,7 @@ log_message ""
 log_message "Next steps:"
 log_message "  1. Logout and login again for group changes to take effect"
 log_message "  2. Setup Git with 'cd $DOTFILES_DIR && ./setup-git.sh'"
-log_message "  3. Enable hourly automation with '$DOTFILES_DIR/script/automation/enable-timers.sh'"
+log_message "  3. Enable automation timers with '$DOTFILES_DIR/script/automation/enable-timers.sh'"
 log_message "  4. Reboot to ensure all changes take effect"
 log_message ""
 log_message "Log file saved to: $log_file"

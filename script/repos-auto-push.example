@@ -1,0 +1,12 @@
+# Repos the git-autopush timer handles, one per line:
+#   <path> <mode>
+#
+# mode "commit" stages everything (git add -A) and commits before pushing.
+# mode "push"   never commits; a dirty tree makes the run fail.
+#
+# Blank lines and lines starting with # are ignored.
+#
+# Copy this file to script/repos-auto-push (gitignored) and edit that copy.
+
+/home/YOU/dotfiles push
+/home/YOU/notes commit

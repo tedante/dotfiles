@@ -2,6 +2,9 @@
 DS_Store
 .zshrc_local
 
+# Per-machine repo list for script/git-autopush.sh
+script/repos-auto-push
+
 # systemd writes enablement symlinks here; ~/.config/systemd is stowed into
 # systemd/.config/systemd, so they would otherwise land in the repo.
 systemd/.config/systemd/user/*.wants/
