@@ -79,7 +79,6 @@ sudo pacman -S \
   poppler \
   tmux \
   zed \
-  emacs \
   mise \
   obsidian \
   imagemagick
@@ -112,8 +111,6 @@ log_message "Step 6: Installing applications from AUR"
 yay -S \
   zoom \
   discord \
-  slack-desktop \
-  xpipe \
   zen-browser-bin \
   brave-bin \
   postman-bin \
@@ -121,7 +118,6 @@ yay -S \
   mongodb-compass \
   heroic-games-launcher-bin \
   flameshot-git \
-  openwork-bin \
   stremio \
   sublime-merge
 
